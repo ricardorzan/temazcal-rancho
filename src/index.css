@@ -1,0 +1,165 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+/* ── Google Fonts already loaded via <link> in index.html ───── */
+
+@theme {
+  /* ── Cream / Paper ────────────────────────────────────────── */
+  --color-cream-50:  #fdfcf7;
+  --color-cream-100: #f6f3ea;
+  --color-cream-200: #ece8d8;
+  --color-cream-300: #ddd8c4;
+  --color-cream-400: #c8c1a8;
+
+  /* ── Forest / Ranch Green ─────────────────────────────────── */
+  --color-forest-950: #0f1c0d;
+  --color-forest-900: #192e15;
+  --color-forest-800: #24431e;
+  --color-forest-700: #325e28;
+  --color-forest-600: #3f7530;
+  --color-forest-500: #4f9039;
+  --color-forest-300: #94c97e;
+  --color-forest-200: #b9e0a8;
+  --color-forest-100: #d6efca;
+  --color-forest-50:  #eef8e8;
+
+  /* ── Spring / Water Blue ──────────────────────────────────── */
+  --color-spring-900: #0e3a46;
+  --color-spring-800: #0f4e5c;
+  --color-spring-700: #165c6e;
+  --color-spring-600: #1a7a8c;
+  --color-spring-500: #208099;
+  --color-spring-400: #4da6b8;
+  --color-spring-300: #72c0d4;
+  --color-spring-200: #a3d9e6;
+  --color-spring-100: #c8eaf2;
+  --color-spring-50:  #e9f6fa;
+
+  /* ── Copper / Earth Accent ────────────────────────────────── */
+  --color-copper-900: #4a1e0e;
+  --color-copper-800: #6b2b0e;
+  --color-copper-700: #8b3a1a;
+  --color-copper-600: #a65a3a;
+  --color-copper-500: #c05621;
+  --color-copper-400: #d9825e;
+  --color-copper-300: #e8a07a;
+  --color-copper-200: #f5c1a3;
+  --color-copper-100: #fbe8db;
+  --color-copper-50:  #fdf3ed;
+
+  /* ── Ink / Text ───────────────────────────────────────────── */
+  --color-ink-950: #111008;
+  --color-ink-800: #2a2820;
+  --color-ink-600: #4a4838;
+  --color-ink-400: #7a7866;
+  --color-ink-200: #c2c0b2;
+
+  /* ── Typography ───────────────────────────────────────────── */
+  --font-display:  "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans:     "DM Sans", system-ui, -apple-system, sans-serif;
+}
+
+/* ── Base ─────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fdfcf7;
+  color: #111008;
+  font-family: "DM Sans", system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+::selection {
+  background-color: #c8eaf2;
+  color: #0e3a46;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #f6f3ea; }
+::-webkit-scrollbar-thumb { background: #c8c1a8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #3f7530; }
+
+/* ── Font helpers ─────────────────────────────────────────────── */
+.font-display {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-feature-settings: "liga" 1, "kern" 1;
+}
+
+/* ── Thin ruled lines ─────────────────────────────────────────── */
+.rule-forest {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #325e28, transparent);
+  opacity: 0.35;
+}
+
+.rule-cream {
+  border: none;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #c8c1a8, transparent);
+}
+
+/* ── Reveal on scroll ─────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Organic blob shape (decorative background element) ───────── */
+.blob {
+  border-radius: 60% 40% 55% 45% / 45% 55% 40% 60%;
+}
+
+/* ── Product card hover lift ──────────────────────────────────── */
+.card-lift {
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px -15px rgba(50, 94, 40, 0.18);
+}
+
+/* ── WhatsApp FAB pulse ───────────────────────────────────────── */
+@keyframes gentle-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(63, 117, 48, 0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(63, 117, 48, 0); }
+}
+.wa-pulse {
+  animation: gentle-pulse 2.5s ease-in-out infinite;
+}
+
+/* ── Leaflet Map Adjustments for Tailwind ─────────────────────── */
+.leaflet-container img {
+  max-width: none !important;
+}
+.leaflet-container {
+  font-family: inherit;
+  z-index: 10;
+  background-color: #f6f3ea;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px -5px rgba(15, 28, 13, 0.15);
+  border: 1px solid #ddd8c4;
+  background-color: #ffffff;
+}
+.leaflet-popup-content {
+  font-family: "DM Sans", system-ui, sans-serif;
+  margin: 14px 18px;
+  line-height: 1.5;
+}
